@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Status — Concept Prototype</title>
+<style>
+:root{--green:#075e54;--lime:#25d366;--bg:#e9e3da;--ink:#17211e;--muted:#6a7772;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#d9e7df,#f1e9df);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
+.wrap{max-width:1100px;margin:auto;padding:32px 20px 60px}.intro{max-width:720px;margin:0 auto 24px;text-align:center}.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:var(--green);font-size:12px;font-weight:800}.intro h1{font-size:clamp(28px,4vw,42px);margin:8px 0}.intro p{color:#53615b;line-height:1.6}
+.layout{display:grid;grid-template-columns:minmax(280px,390px) minmax(280px,1fr);gap:28px;align-items:start;justify-content:center}
+.phone{width:100%;max-width:360px;margin:auto;background:#f8f6f2;border:9px solid #17211e;border-radius:36px;overflow:hidden;min-height:690px;box-shadow:0 24px 60px #1d33252a;position:relative}
+.statusbar{height:28px;background:#075e54;color:white;display:flex;justify-content:space-between;padding:5px 18px;font-size:11px}
+.top{background:var(--green);color:white;padding:13px 16px 0}.topline{display:flex;justify-content:space-between;align-items:center}.top h2{font-size:22px;margin:0}.icons{font-size:20px;letter-spacing:10px}.tabs{display:flex;gap:22px;margin-top:17px;font-size:13px;color:#c6dfd8}.tabs span{padding-bottom:10px}.tabs .active{color:white;border-bottom:3px solid #d4f7e8}
+.search{margin:12px 13px;padding:10px 13px;background:#fff;border-radius:10px;color:#89948f;font-size:13px}
+.section{padding:5px 14px 2px;font-size:12px;color:var(--muted);font-weight:700}
+.row{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;border-bottom:1px solid #e9e7e2}.row:hover{background:#eef5f0}.avatar{width:49px;height:49px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:800;font-size:14px;flex-shrink:0;border:3px solid #25a56b}.a1{background:linear-gradient(135deg,#d78d66,#713d36)}.a2{background:linear-gradient(135deg,#e9c27b,#a64d43)}.a3{background:linear-gradient(135deg,#88b6a4,#3d5f72)}.a4{background:linear-gradient(135deg,#b4a1d1,#57436f)}.row strong{font-size:14px}.row small{display:block;color:#7a8580;margin-top:4px}.chev{margin-left:auto;color:#8c9891}
+.note{font-size:11px;color:#718079;text-align:center;padding:10px}
+.panel{background:#ffffffc9;border:1px solid #ffffff;border-radius:22px;padding:22px;box-shadow:0 15px 45px #21392a12}.panel h2{margin:0 0 8px;font-size:24px}.panel>p{color:#59675f;line-height:1.55}.pill{display:inline-block;background:#dff4e7;color:#075e54;padding:5px 9px;border-radius:99px;font-size:11px;font-weight:800;margin-bottom:12px}
+.story{display:none;position:absolute;inset:0;background:linear-gradient(160deg,#c4d8c5,#e5b79b 50%,#7c8f82);color:#fff;z-index:3}.story.show{display:flex;flex-direction:column}.progress{height:3px;background:#ffffff6b;margin:10px 10px 16px}.progress span{display:block;width:55%;height:100%;background:white}.storyhead{display:flex;align-items:center;gap:9px;padding:0 13px;text-shadow:0 1px 4px #0006}.mini{width:34px;height:34px;border:2px solid white;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:bold}.storyhead button{margin-left:auto;background:transparent;color:white;border:0;font-size:24px;cursor:pointer}.scene{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;text-shadow:0 2px 9px #0003}.scene .emoji{font-size:64px}.scene h3{font-size:28px;margin:12px 0}.scene p{font-size:15px}
+.replybox{background:#f8f6f2;color:#17211e;border-radius:18px 18px 0 0;padding:14px}.replybox label{font-size:12px;color:#637068;font-weight:800}.suggestions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.suggestions button{border:1px solid #b5d9c2;background:white;color:#075e54;border-radius:18px;padding:8px 10px;cursor:pointer;font-size:12px}.suggestions button:hover{background:#dff4e7}.compose{display:flex;gap:7px}.compose input{min-width:0;flex:1;border:1px solid #d4d9d5;border-radius:20px;padding:11px;font-size:13px}.compose button,.primary{background:#087f5b;color:white;border:0;border-radius:20px;padding:10px 13px;cursor:pointer;font-weight:700}.toast{font-size:12px;color:#087f5b;min-height:18px;margin-top:8px}
+.pollopts{width:100%;max-width:240px;display:grid;gap:9px}.pollopts button{border:1px solid #ffffffb8;background:#ffffffdd;border-radius:12px;padding:12px;color:#23473b;font-weight:700;cursor:pointer}.pollopts button.selected{outline:3px solid #25d366;background:#e4fff0}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.metric{background:#f4f7f4;border-radius:14px;padding:14px}.metric strong{display:block;color:#075e54;font-size:13px}.metric span{font-size:12px;color:#617069;line-height:1.45;display:block;margin-top:5px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.controls button{border:1px solid #cddbd1;background:white;color:#1e4d3b;border-radius:12px;padding:10px 13px;font-weight:700;cursor:pointer}.controls button.active,.controls button:hover{background:#075e54;color:white}
+.disclaimer{font-size:11px;color:#66746c;margin-top:20px;line-height:1.5}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.panel{grid-row:1}.phone{max-width:360px}.wrap{padding:22px 12px 40px}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="intro"><div class="eyebrow">Independent product concept · India</div><h1>Make Status easier to respond to.</h1><p>A clickable concept exploring contextual quick replies and lightweight participation. This is a portfolio prototype, not an official WhatsApp product.</p></header>
+<div class="layout">
+<section class="phone" aria-label="Interactive mobile concept">
+<div class="statusbar"><span>9:41</span><span>●●● ▰</span></div>
+<div class="top"><div class="topline"><h2 id="screenTitle">Updates</h2><div class="icons">⌕ ⋮</div></div><div class="tabs"><span>CHATS</span><span class="active">UPDATES</span><span>CALLS</span></div></div>
+<div id="feed">
+<div class="search">⌕ &nbsp; Search updates</div><div class="section">Status</div>
+<div class="row" data-story="maya"><div class="avatar a1">MK</div><div><strong> Maya Kapoor</strong><small>Just now · College fest</small></div><span class="chev">›</span></div>
+<div class="row" data-story="arjun"><div class="avatar a2">AS</div><div><strong> Arjun Shah</strong><small>12 minutes ago · New place</small></div><span class="chev">›</span></div>
+<div class="row" data-story="family"><div class="avatar a3">FM</div><div><strong> Family group</strong><small>28 minutes ago · Celebration</small></div><span class="chev">›</span></div>
+<div class="row" data-story="poll"><div class="avatar a4">NP</div><div><strong> Neha Patel</strong><small>35 minutes ago · Quick question</small></div><span class="chev">›</span></div>
+<div class="section" style="margin-top:15px">Viewed updates</div><div class="row"><div class="avatar a3" style="border-color:#cbd2ce">RS</div><div><strong> Riya Sharma</strong><small>Yesterday</small></div></div>
+<div class="note">Sample contacts and stories · Tap a row to explore</div>
+</div>
+<div id="story" class="story">
+<div class="progress"><span></span></div><div class="storyhead"><div class="mini" id="storyAvatar">MK</div><div><strong id="storyName">Maya Kapoor</strong><div style="font-size:11px;opacity:.85">Just now</div></div><button id="closeStory" aria-label="Close Status">×</button></div>
+<div class="scene" id="scene"><div class="emoji">🎓✨</div><h3>College fest!</h3><p>Such a fun evening with everyone.</p></div>
+<div class="replybox" id="replybox"><label>QUICK REPLIES · OPTIONAL</label><div class="suggestions"><button>Looks amazing!</button><button>Where is this?</button><button>Wish I was there 😄</button></div><div class="compose"><input id="replyInput" placeholder="Write a reply…" aria-label="Edit reply"><button id="sendReply">Send</button></div><div class="toast" id="toast" aria-live="polite"></div></div>
+</div>
+</section>
+<aside class="panel"><span class="pill">MVP CONCEPT</span><h2 id="panelTitle">A lower-friction Status experience</h2><p id="panelCopy">Explore the feed, open a Status, select a contextual suggestion, edit it, and try the send interaction. The prototype demonstrates a hypothesis—not validated user behavior.</p>
+<div class="info"><div class="metric"><strong>Primary user</strong><span>College students sharing everyday moments</span></div><div class="metric"><strong>Core problem</strong><span>Wanting to reply but not knowing what to say</span></div><div class="metric"><strong>First test</strong><span>Optional contextual quick replies</span></div><div class="metric"><strong>North Star</strong><span>Weekly meaningful Status interactions per active viewer</span></div></div>
+<div class="controls"><button class="active" data-mode="feed">1 · Status feed</button><button data-mode="quick">2 · Quick replies</button><button data-mode="poll">3 · Poll interaction</button></div>
+<p class="disclaimer"><strong>Note:</strong> This concept is not affiliated with or endorsed by WhatsApp or Meta. Sample contacts and content are fictional. The send action is simulated locally and does not send a real message.</p>
+</aside></div></main>
+<script>
+const feed=document.getElementById('feed'), story=document.getElementById('story'), input=document.getElementById('replyInput'), toast=document.getElementById('toast');
+const data={
+maya:{name:'Maya Kapoor',initials:'MK',emoji:'🎓✨',title:'College fest!',copy:'Such a fun evening with everyone.',suggestions:['Looks amazing!','Where is this?','Wish I was there 😄']},
+arjun:{name:'Arjun Shah',initials:'AS',emoji:'📍☕',title:'Found a new café',copy:'This place has the best coffee.',suggestions:['Looks great!','Where is this?','Adding it to my list ☕']},
+family:{name:'Family update',initials:'FM',emoji:'🎂❤️',title:'A little celebration',copy:'Good food and even better company.',suggestions:['Congratulations!','Looks lovely ❤️','Wish you all the best!']},
+poll:{name:'Neha Patel',initials:'NP',emoji:'🗳️💬',title:'Help me choose!',copy:'Which plan should we do this weekend?',poll:true}
+};
+let current='maya';
+function openStory(key){current=key;const d=data[key];document.getElementById('storyName').textContent=d.name;document.getElementById('storyAvatar').textContent=d.initials;document.getElementById('scene').innerHTML=`<div class="emoji">${d.emoji}</div><h3>${d.title}</h3><p>${d.copy}</p>`;document.getElementById('replybox').style.display=d.poll?'none':'block';
+if(d.poll){document.getElementById('scene').innerHTML+=`<div class="pollopts"><button data-vote="Beach day">🏖️ Beach day</button><button data-vote="Movie night">🎬 Movie night</button><button data-vote="Café hopping">☕ Café hopping</button></div><div id="pollToast" style="margin-top:12px;font-size:13px"></div>`;document.querySelectorAll('[data-vote]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-vote]').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('pollToast').textContent='Vote selected — demo only.'})}
+else{document.querySelector('.suggestions').innerHTML=d.suggestions.map(s=>`<button>${s}</button>`).join('');document.querySelectorAll('.suggestions button').forEach(b=>b.onclick=()=>{input.value=b.textContent;input.focus();toast.textContent='Suggestion selected. Edit it or send in this demo.'});input.value='';toast.textContent=''}
+story.classList.add('show');document.getElementById('panelTitle').textContent=d.poll?'Interactive poll concept':'Contextual quick replies';document.getElementById('panelCopy').textContent=d.poll?'A simple poll can give viewers an explicit way to participate. In a real product, audience visibility, response privacy, abuse controls, and reporting would need careful design.':'Suggestions aim to reduce the effort of responding. They should remain optional, relevant, editable, and easy to ignore.';setMode(d.poll?'poll':'quick')}
+function setMode(mode){document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));if(mode==='feed'){story.classList.remove('show');document.getElementById('panelTitle').textContent='A lower-friction Status experience';document.getElementById('panelCopy').textContent='Explore the feed, open a Status, select a contextual suggestion, edit it, and try the send interaction. The prototype demonstrates a hypothesis—not validated user behavior.'}else if(mode==='quick'){openStory('maya')}else{openStory('poll')}}
+document.querySelectorAll('.row[data-story]').forEach(r=>r.addEventListener('click',()=>openStory(r.dataset.story)));
+document.getElementById('closeStory').onclick=()=>{story.classList.remove('show');document.getElementById('panelTitle').textContent='A lower-friction Status experience'};
+document.getElementById('sendReply').onclick=()=>{if(!input.value.trim()){toast.textContent='Choose a suggestion or write a reply first.';return}toast.textContent='Demo: reply prepared. No real message was sent.'};
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+</script></body></html>
